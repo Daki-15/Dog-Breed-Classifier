@@ -51,7 +51,7 @@ The script will launch a graphical user interface where you can select an image 
 
 ## Configuration
 
-- **model_path:** Path to the pre-trained model file.
+- **model_path:** Path to the pre-trained model file. (The `.h5` file was not added to github due to the site's 100MB limit) 
 - **labels.csv:** CSV file containing dog breed labels.
 - **index:** HTML template for the GUI interface.
 
