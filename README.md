@@ -58,3 +58,14 @@ The script will launch a graphical user interface where you can select an image 
 ## Contributing
 
 Feel free to contribute to this project by opening issues or submitting pull requests.
+
+## App interface:
+
+![](./img/interface.PNG)
+
+### Demo:
+
+German Shepherd 
+![](./img/Example_1.PNG)
+French bulldog
+![](./img/Example_2.PNG)
