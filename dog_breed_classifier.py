@@ -10,8 +10,7 @@ import pandas as pd
 model_path = "10-12-23--11_51_1702209080-10222-images-resnet_v2-Adam.h5"
 
 # Load the pre-trained model using Keras and TensorFlow Hub
-model = load_model(model_path,
-                    custom_objects={"KerasLayer" : hub.KerasLayer})
+model = load_model(model_path, custom_objects={"KerasLayer": hub.KerasLayer})
 
 def preprocessing_image(image_path):
     """
@@ -28,17 +27,19 @@ def preprocessing_image(image_path):
 
     return image
 
-def extract_unique_breeds(labels_path):
-    # Read the CSV file containing labels
-    labels_csv = pd.read_csv(labels_path)
-
+def extract_unique_breeds_info(race_info_path):
+    # Read the CSV file containing unique breeds and their information
+    race_info_csv = pd.read_csv(race_info_path)
+    
     # Extract the "breed" column from the CSV and convert it to a NumPy array
-    labels = labels_csv["breed"]
-    labels = np.array(labels)
+    breeds = np.array(race_info_csv["breed"])
+    
+    # Extract the "interesting things" column from the CSV and convert it to a NumPy array
+    interesting_things = np.array(race_info_csv["interesting"])
 
-    return np.unique(labels)
+    return breeds, interesting_things
 
-def predict_image(model, path_to_img):
+def predict_image(model, path_to_img, unique_breeds):
     # Preprocess the image using the defined function
     img = preprocessing_image(path_to_img)
     # Predict the image using the loaded model
@@ -52,9 +53,10 @@ def predict_image(model, path_to_img):
 # Initialize variables
 content = ""
 image_path = "./img/placeholder_image.png"
-unique_breeds = extract_unique_breeds("labels.csv")
+unique_breeds, interesting_things = extract_unique_breeds_info("unique_breeds.csv")
 prob = 0
 pred = ""
+interesting_placeholder = ""
 
 # Define the HTML template for the user interface
 index = """
@@ -66,19 +68,28 @@ Select an image of a dog from your file system
 
 <|{pred}|>
 
+
 <|{image_path}|image|>
 
 <|{prob}|indicator|value={prob}|min=0|max=100|width=25vw|>
+
+<|{interesting_placeholder}|>
 >
 """
 
+
 def on_change(state, var_name, var_value):
-    # Handle changes in the GUI elements, particularly when a new image is selected
+    # Handle changes in the GUI elements, particularly when a new image or breed is selected
     if var_name == "content":
-        top_pred, top_prob = predict_image(model, var_value)
+        top_pred, top_prob = predict_image(model, var_value, unique_breeds)
         state.prob = round(top_prob * 100)
-        state.pred = "This is a \n" + top_pred
+        state.pred = "This is a \n\n" + top_pred
         state.image_path = var_value
+        
+        # Set the interesting information based on the selected breed
+        breed_index = np.where(unique_breeds == top_pred)[0][0]
+        interesting_info = interesting_things[breed_index]
+        state.interesting_placeholder = f"{interesting_info}"
 
 # Create an instance of the GUI
 app = Gui(page=index)
