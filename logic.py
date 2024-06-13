@@ -1,12 +1,17 @@
 # Import necessary libraries
+import os
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 from keras.models import load_model
 import tensorflow_hub as hub
 import tensorflow as tf
 import numpy as np
 import pandas as pd
+import logging
+tf.get_logger().setLevel(logging.ERROR)
 
 # Define the path to the pre-trained model file
-model_path = "10-12-23--11_51_1702209080-10222-images-resnet_v2-Adam.h5"
+model_path = "22-05-24--13_33_1716384791-22_222-images-resnet_v2-Adam.h5"
 
 # Load the pre-trained model using Keras and TensorFlow Hub
 model = load_model(model_path, custom_objects={"KerasLayer": hub.KerasLayer})
