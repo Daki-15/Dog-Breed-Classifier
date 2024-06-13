@@ -35,7 +35,15 @@ git clone https://github.com/Daki-15/dog-breed-classifier.git
 cd dog-breed-classifier
 ```
 
-3. Run the script:
+3. Download the pre-trained model and place it in the project directory. The model should be a .h5 file.
+
+4. Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+5. Run the script:
 
 ```bash
 python dog_breed_classifier.py
