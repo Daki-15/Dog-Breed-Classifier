@@ -35,7 +35,7 @@ git clone https://github.com/Daki-15/dog-breed-classifier.git
 cd dog-breed-classifier
 ```
 
-3. Download the pre-trained model and place it in the project directory. The model should be a .h5 file. (https://drive.google.com/file/d/10Wgn9JTzg3oOSg1sEjlcf-QkjLQXvVYW/view?usp=drive_link)
+3. Download the pre-trained model and place it in the project directory. The model should be a .h5 file. (https://drive.google.com/file/d/1-vIbOU6BfO6ZlM10xaFu2eAyN73pl1qb/view?usp=drive_link)
 
 4. Install the required dependencies:
 
