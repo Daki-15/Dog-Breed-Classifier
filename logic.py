@@ -11,7 +11,7 @@ import logging
 tf.get_logger().setLevel(logging.ERROR)
 
 # Define the path to the pre-trained model file
-model_path = "22-05-24--13_33_1716384791-22_222-images-resnet_v2-Adam.h5"
+model_path = "model.h5"
 
 # Load the pre-trained model using Keras and TensorFlow Hub
 model = load_model(model_path, custom_objects={"KerasLayer": hub.KerasLayer})
